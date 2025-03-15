@@ -1,7 +1,7 @@
 "use client";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -22,6 +22,7 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 export const navigation = {
   categories: [
@@ -155,27 +156,29 @@ export const navigation = {
 };
 
 export const Banner = () => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  if (!isVisible) return null;
-
-  return (
-    <div className="relative bg-indigo-600 text-white text-sm font-medium shadow-md">
-      <div className="flex items-center justify-between px-6 py-2">
-        <p className="text-center flex-1">
-          🚚 Get free delivery on orders over ₹500!
-        </p>
-        <button
-          className="p-2 rounded-full hover:bg-indigo-500 transition"
-          onClick={() => setIsVisible(false)}
-        >
-          <X className="w-5 h-5" />
-        </button>
+    const [isVisible, setIsVisible] = useState(true);
+  
+    useEffect(() => {
+      const timer = setTimeout(() => setIsVisible(false), 5000);
+      return () => clearTimeout(timer);
+    }, []);
+  
+    if (!isVisible) return null;
+  
+    return (
+      <div className="relative bg-indigo-600 text-white text-sm font-medium shadow-md transition-opacity duration-500">
+        <div className="flex items-center justify-between px-6 py-2">
+          <p className="text-center flex-1">🚚 Get free delivery on orders over ₹500!</p>
+          <button
+            className="p-2 rounded-full hover:bg-indigo-500 transition"
+            onClick={() => setIsVisible(false)}
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  };
 export const SearchBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -266,7 +269,7 @@ export const Navigate = () => {
                     <div className="grid grid-cols-2 gap-x-4">
                       {category.featured.map((item) => (
                         <div key={item.name} className="group relative text-sm">
-                          <img
+                          <Image
                             alt={item.imageAlt}
                             src={item.imageSrc}
                             className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
@@ -352,7 +355,7 @@ export const Navigate = () => {
 
             <div className="border-t border-gray-200 px-4 py-6">
               <a href="#" className="-m-2 flex items-center p-2">
-                <img
+                <Image
                   alt=""
                   src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg"
                   className="block h-auto w-5 shrink-0"
@@ -390,8 +393,10 @@ export const Navigate = () => {
               <div className="ml-4 flex lg:ml-0">
                 <a href="#">
                   <span className="sr-only">STACKY</span>
-                  <img
+                  <Image
                     alt=""
+                    width={20}
+                    height={20}
                     src="https://discordbanners.vercel.app/static/img/logo.svg"
                     className="h-8 w-auto"
                   />
@@ -428,7 +433,7 @@ export const Navigate = () => {
                                     key={item.name}
                                     className="group relative text-base sm:text-sm"
                                   >
-                                    <img
+                                    <Image
                                       alt={item.imageAlt}
                                       src={item.imageSrc}
                                       className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
@@ -518,8 +523,10 @@ export const Navigate = () => {
                     href="#"
                     className="flex items-center text-gray-700 hover:text-gray-800"
                   >
-                    <img
+                    <Image
                       alt=""
+                      width={20}
+                      height={20}
                       src="https://discordbanners.vercel.app/static/img/india.png"
                       className="block h-auto w-5 shrink-0"
                     />

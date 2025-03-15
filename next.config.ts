@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["discordbanners.vercel.app"], // Add the external hostname
+  },
 };
 
 export default nextConfig;
